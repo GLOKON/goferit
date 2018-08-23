@@ -11,5 +11,23 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.config.vue.esModule = true;
+
+mix
+    .js('resources/assets/js/app.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sourceMaps()
+    .disableNotifications();
+
+if (mix.inProduction()) {
+    mix.version();
+
+    mix.extract([
+        'vue',
+        'axios',
+        'vuex',
+        'jquery',
+        'popper.js',
+        'vue-router',
+    ])
+}
